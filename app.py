@@ -1,8 +1,6 @@
 from flask import Flask, request
 
-from linebot import (
-    LineBotApi, WebhookHandler
-)
+from linebot import LineBotApi, WebhookHandler
 from linebot.models import (
     BeaconEvent,
     TextSendMessage,
@@ -24,7 +22,7 @@ def webhook():
     if request.method == "POST":
         print("Data received from Webhook is: ", request.json)
 
-        signature = request.headers['X-Line-Signature']
+        signature = request.headers["X-Line-Signature"]
         body = request.get_data(as_text=True)
         print("Request body: ", body)
 
@@ -35,11 +33,8 @@ def webhook():
 
 @handler.add(BeaconEvent)
 def handle_message(event):
-    line_bot_api.reply_message(
-        event.reply_token,
-        TextSendMessage(text="Hello!")
-    )
+    line_bot_api.reply_message(event.reply_token, TextSendMessage(text="Hello!"))
 
 
 if __name__ == "__main__":
-   app.run(host="localhost", port=3000, debug=True)
+    app.run(host="localhost", port=3000, debug=True)
